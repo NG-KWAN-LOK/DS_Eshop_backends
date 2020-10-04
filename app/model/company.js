@@ -4,18 +4,13 @@ module.exports = app => {
   const { Sequelize } = app;
   const sequelize = app.model;
 
-  const Users = sequelize.define('users', {
+  const Company = sequelize.define('Company', {
     id: {
       primaryKey: true,
       type: Sequelize.UUID,
       allowNull: false,
       unique: true,
       defaultValue: Sequelize.UUIDV4,
-    },
-    username: {
-      type: Sequelize.STRING(255),
-      allowNull: true,
-      unique: true
     },
     email: {
       type: Sequelize.STRING(255),
@@ -26,10 +21,6 @@ module.exports = app => {
       type: Sequelize.STRING(255),
       allowNull: false,
       unique: false
-    },
-    pwHash: {
-      type: Sequelize.TEXT,
-      allowNull: true
     },
     is_online: {
       type: Sequelize.BOOLEAN,
@@ -53,25 +44,9 @@ module.exports = app => {
       type: Sequelize.STRING,
       allowNull: true,
     },
-    invite_code: {
-      type: Sequelize.STRING(32),
-      allowNull: true,
-    },
     creator_id: {
       type: Sequelize.UUID,
       allowNull: true,
-    },
-    company_id: {
-      type: Sequelize.UUID,
-      allowNull: true,
-    },
-    group_id: {
-      type: Sequelize.UUID,
-      allowNull: true,
-    },
-    last_login: {
-      type: Sequelize.DATE,
-      defaultValue: null
     },
     
   }, {
@@ -85,13 +60,13 @@ module.exports = app => {
   Users.sync({ force: false });
 
   // Association
-  Users.associate = () => {
+  Company.associate = () => {
 
-    Users.hasOne(Users, {
+    Company.hasOne(Company, {
       foreignKey: 'creator_id'
     });
 
   };
 
-  return Users;
+  return Company;
 };
