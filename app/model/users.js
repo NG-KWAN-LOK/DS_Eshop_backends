@@ -12,24 +12,43 @@ module.exports = app => {
       unique: true,
       defaultValue: Sequelize.UUIDV4,
     },
-    username: {
-      type: Sequelize.STRING(255),
+    telephone: {
+      type: Sequelize.STRING(32),
+      allowNull: false,
+      unique: true,
+    },
+    address: {
+      type: Sequelize.STRING,
       allowNull: true,
-      unique: true
     },
     email: {
       type: Sequelize.STRING(255),
       allowNull: false,
       unique: true
     },
+    last_login: {
+      type: Sequelize.DATE,
+      defaultValue: null
+    },
     name: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(32),
       allowNull: false,
       unique: false
     },
     pwHash: {
       type: Sequelize.TEXT,
-      allowNull: true
+      allowNull: false,
+    },
+    username: {
+      type: Sequelize.STRING(32),
+      allowNull: false,
+      unique: true,
+    },
+    bankAccount: {
+      type: Sequelize.STRING(255),
+      allowNull: true,
+      unique: true,
+      defaultValue: null,
     },
     is_online: {
       type: Sequelize.BOOLEAN,
@@ -45,35 +64,10 @@ module.exports = app => {
       defaultValue: 0,
       allowNull: false,
     },
-    telephone: {
-      type: Sequelize.STRING(32),
-      allowNull: true,
-    },
-    address: {
-      type: Sequelize.STRING,
-      allowNull: true,
-    },
     invite_code: {
       type: Sequelize.STRING(32),
       allowNull: true,
     },
-    creator_id: {
-      type: Sequelize.UUID,
-      allowNull: true,
-    },
-    company_id: {
-      type: Sequelize.UUID,
-      allowNull: true,
-    },
-    group_id: {
-      type: Sequelize.UUID,
-      allowNull: true,
-    },
-    last_login: {
-      type: Sequelize.DATE,
-      defaultValue: null
-    },
-    
   }, {
     freezeTableName: true,
     timestamps: true,
@@ -88,7 +82,7 @@ module.exports = app => {
   Users.associate = () => {
 
     Users.hasOne(Users, {
-      foreignKey: 'creator_id'
+      foreignKey: 'id'
     });
 
   };
